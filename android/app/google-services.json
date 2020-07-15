@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "760638326655",
+    "firebase_url": "https://trackville-893c5.firebaseio.com",
+    "project_id": "trackville-893c5",
+    "storage_bucket": "trackville-893c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760638326655:android:30b4ce09102d9c13813c4a",
+        "android_client_info": {
+          "package_name": "br.com.styleville.trackville"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760638326655-i3bsrg94v62kf5j7lh4frsuag7opnd2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.styleville.trackville",
+            "certificate_hash": "59b2947f6ec429fe5afeb603e9acc5f6b9ca0b98"
+          }
+        },
+        {
+          "client_id": "760638326655-9l2bebcq6b7kmtfnt1g53cmko08ca024.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgDXYQWwStTvyGLSWNRofF8839LxZ7Cww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760638326655-9l2bebcq6b7kmtfnt1g53cmko08ca024.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
