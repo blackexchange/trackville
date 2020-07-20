@@ -7,7 +7,7 @@ import 'persons_page.dart';
 class PersonsModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => PersonsRepository(Dio())),
+      //  Bind((i) => PersonsRepository(Dio())),
         Bind((i) => PersonsController()),
       ];
 

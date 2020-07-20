@@ -16,20 +16,67 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.highlight_off),
-          onPressed: controller.logoff,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/bg.jpg"),
+                fit: BoxFit.cover
+            )
         ),
-        title: Text(widget.title),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 70, bottom: 32),
 
+                    ),
+                    _signInButton()
+                    //RaisedButton(onPressed: controller.loginWithGoogle,
+                      //child: Text("Entrar com o Google"),)
+                  ],
+                ),
+
+              ],
+            )
+          ],
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          RaisedButton(onPressed: controller.loginWithGoogle,
-          child: Text("Entrar com o Google"),)
+    );
 
-        ],
+  }
+  Widget _signInButton() {
+    return OutlineButton(
+      splashColor: Colors.grey,
+      onPressed: controller.loginWithGoogle,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/images/google.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Sign in with Google',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
