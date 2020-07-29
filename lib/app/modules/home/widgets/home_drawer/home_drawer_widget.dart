@@ -90,7 +90,7 @@ class _HomeDrawerWidgetState extends ModularState<HomeDrawerWidget, HomeControll
                   leading: Icon(Icons.lightbulb_outline),
                   title: Text('Idea Maker'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Modular.to.pushReplacementNamed("/triz");
                   },
                 ),
 

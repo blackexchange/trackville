@@ -1,21 +1,19 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:trackville/app/modules/home/widgets/home_drawer/home_drawer_widget.dart';
-import 'package:trackville/app/modules/home/widgets/home_drawer/home_drawer_widget.dart';
 import 'package:trackville/app/modules/persons/model/person_model.dart';
-import 'package:trackville/app/modules/persons/persons_controller.dart';
-import '../../app_module.dart';
 import 'coaching_controller.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:share/share.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 
 class CoachingPage extends StatefulWidget {
   final String title;
@@ -32,14 +30,22 @@ class _CoachingPageState
 
   _CoachingPageState() {
     personModel = controller.personModel;
+
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     //print(personModel.toJson());
+ //   print(controller.lectureMap.values.elementAt(0)[0]);
+  }
+
+  @override
+  void initState() {
+  //  controller.getData();
 
   }
+
 
   //use 'controller' variable to access controller
   int _selectedIndex = 0;
@@ -71,6 +77,7 @@ class _CoachingPageState
                       child: Icon(Icons.keyboard_arrow_right),
                       onTap: () {
                         Modular.to.pushReplacementNamed("/coaching");
+
                       },
                     )
                   ],
@@ -110,15 +117,8 @@ class _CoachingPageState
         title: Text(personModel.name.toUpperCase()),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert),
-            onPressed: (){
-            _generatePDF();
-//            const   text ="test0";
-//              final RenderBox box = context.findRenderObject();
-//
-//              Share.share(_generatePDF(),
-//                  sharePositionOrigin:
-//                  box.localToGlobal(Offset.zero) &
-//                  box.size);
+            onPressed: () async {
+            await controller.generateDocument(personModel);
             },
           )],
       ),
@@ -142,9 +142,10 @@ class _CoachingPageState
                       title:
                       _buildTitle(
                          // controller.lectureMap.keys.elementAt(index),
-                          controller.lectureMap.values.elementAt(index),
+                          controller.lectureMap.values.elementAt(index)[0],
                           controller.leitureValues[index].toString(),
-                          controller.numbers[controller.leitureValues[index]]),
+                          controller.lectureMap.values.elementAt(index)[1]),
+                       //   controller.numbers[controller.leitureValues[index]]),
                           //controller.leitureValues[index] !="[]" ? controller.leitureValues[index].toString() :"",
 
                       trailing: SizedBox(),
@@ -154,7 +155,7 @@ class _CoachingPageState
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: <Widget>[
-                                Text(controller.leitureResume[index]),
+                                Text(controller.lectureMap.values.elementAt(index)[1]),
                                 Spacer(),
                                 Observer(
                                   builder: ((_) {
@@ -212,26 +213,36 @@ class _CoachingPageState
       ),
     );
   }
-  _generatePDF() async{
-    final pdf = pw.Document();
-
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Center(
-            child: pw.Text("Hello World"),
-          ); // Center
-        }));
-    final output = await getTemporaryDirectory();
-    print("gerando arquivo...");
-    final file = File("${output.path}/example.pdf");
-    //final file = File("example.pdf");
-    await file.writeAsBytes(pdf.save());
-    print("Salvo! ${output.path}/example.pdf");
-  }
+//  _generatePDF(PersonModel p) async{
+//
+//    controller.generateDocument(PdfPageFormat.a4);
+//
+//    final pdf = pw.Document();
+//    final Uint8List fontData = File('open-sans.ttf').readAsBytesSync();
+//    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
+//
+//    pdf.addPage(pw.Page(
+//        pageFormat: PdfPageFormat.a4,
+//        build: (pw.Context context) {
+//          return pw.Center(
+//            child: pw.Text("Mapa Numerológico",
+//                style: pw.TextStyle(font: ttf, fontSize: 40)),
+//          ); // Center
+//        })
+//    );
+//    final output = await getTemporaryDirectory();
+//    final fileName  = output.path+"/"+p.name+".pdf";
+//    final file = File(fileName);
+//    await file.writeAsBytes(pdf.save());
+//
+//    final ByteData bytes = await rootBundle.load(fileName);
+//    await Share.file('Mapa Numerológico', "Mapa ${p.name}.pdf", bytes.buffer.asUint8List(),
+//        'application/pdf', text: 'Seu Mapa Numerológico está pronto!!');
+//
+//  }
 }
 
-Widget _buildTitle(String title, String value, Map key) {
+Widget _buildTitle(String title, String value, String description) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -254,8 +265,8 @@ Widget _buildTitle(String title, String value, Map key) {
         height: 10,
       ),
       Text(
-        key != null ? key["keywords"].toString() : "",
-        style: TextStyle(fontStyle: FontStyle.italic),
+        description,
+        style: TextStyle(fontStyle: FontStyle.italic, fontFamily: "Roboto"),
       ),
       Row(
         children: <Widget>[

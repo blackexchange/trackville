@@ -98,6 +98,7 @@ abstract class _PersonsControllerBase with Store {
   //Functions
   @action
   Future <ObservableList<PersonModel>> getPersons() async{
+
     final allPersons = await service.getAll();
     return personsList;
   }
@@ -122,6 +123,7 @@ abstract class _PersonsControllerBase with Store {
     p.email=email;
     p.localBorn=localBorn;
     p.numerologyMap = NumerologyMap();
+
 
 
     await calcularData(p);
@@ -158,7 +160,16 @@ abstract class _PersonsControllerBase with Store {
     model.numerologyMap.lessons = [];
     model.numerologyMap.personalYear = "";
     model.numerologyMap.subconscious = "";
-
+    model.numerologyMap.cicle1 = [];
+    model.numerologyMap.cicle2 = [];
+    model.numerologyMap.cicle3 = [];
+    /*model.numerologyMap.chalenge1 = [];
+    model.numerologyMap.chalenge2 = [];
+    model.numerologyMap.chalenge3 = [];
+    model.numerologyMap.md1 = [];
+    model.numerologyMap.md2 = [];
+    model.numerologyMap.md3 = [];
+    model.numerologyMap.md4 = [];*/
 
     const Map tabela = {
       "1": {"aijqy"},
@@ -197,6 +208,10 @@ abstract class _PersonsControllerBase with Store {
     var missao = "";
     var conversao = "";
     var personalYear = "";
+
+    var ciclo1 = [];
+    var ciclo2 = [];
+    var ciclo3 = [];
 
     var dia = data[0];
     var mes = data[1];
@@ -246,6 +261,9 @@ abstract class _PersonsControllerBase with Store {
       numeros[i] = cadeia;
     }
 
+
+
+
     if (dia == "13" || dia == "14" || dia == "16" || dia == "19")
       model.numerologyMap.dividasCarmicas != null ? model.numerologyMap.dividasCarmicas.add(dia) : model
           .numerologyMap.dividasCarmicas = [dia];
@@ -270,7 +288,6 @@ abstract class _PersonsControllerBase with Store {
           : "";
     }
 
-
     //Lições
 
     exp = new RegExp(r"[^"+conversao+"]");
@@ -281,6 +298,26 @@ abstract class _PersonsControllerBase with Store {
           m.group(0).substring(0, 1))
           : "";
     }
+    //5/8/9
+    //ciclos
+    var karma ="";
+    var end = (int.parse(ano) + 37 - int.parse(numeros[5])).toString();
+
+    if (model.numerologyMap.lessons.contains(numeros[3]))
+      karma = "*";
+    ciclo1 = [ano + " - " + end,karma+numeros[3]];
+    karma ="";
+
+    var end2 = (27 + int.parse(end)).toString();
+    if (model.numerologyMap.lessons.contains(numeros[2]))
+      karma = "*";
+    ciclo2 = [end + " - " + end2,karma+numeros[2]];
+    karma = "";
+
+    if (model.numerologyMap.lessons.contains(numeros[4]))
+      karma = "*";
+    ciclo3 = [end2,karma+numeros[4]];
+
 
     model.numerologyMap.motivacao = numeros[0];
     model.numerologyMap.impressao = numeros[1];
@@ -290,6 +327,9 @@ abstract class _PersonsControllerBase with Store {
     model.numerologyMap.missao = numeros[7];
     model.numerologyMap.personalYear = numeros[8];
     model.numerologyMap.subconscious = (9 - model.numerologyMap.lessons.length).toString();
+    model.numerologyMap.cicle1 = ciclo1;
+    model.numerologyMap.cicle2 = ciclo2;
+    model.numerologyMap.cicle3 = ciclo3;
 
 
   }

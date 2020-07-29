@@ -30,6 +30,7 @@ abstract class _AuthControllerBase with Store{
   @action
   Future loginWithGoogle() async {
     user = await _authRepository.getGoogleLogin();
+    print (user.email);
   }
 
   Future logOut(){

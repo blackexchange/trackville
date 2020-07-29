@@ -35,6 +35,8 @@ class _DetailPageState
   Widget build(BuildContext context) {
     List lectureVar = widget.lecture.replaceAll("[", "").replaceAll("]", "").replaceAll(" ","").split(",");
     String lectureCode = lectureVar[0];
+    var numbers = lectureVar.sublist(1).toString();
+   // print(lectureVar);
 
     return Scaffold(
 
@@ -48,7 +50,7 @@ class _DetailPageState
                   Modular.to.pop();
                 },
               ),
-              title: Text(controller.lectureMap[lectureCode]),
+              title: Text(controller.lectureMap[lectureCode][0] + " " + numbers),
 
             ),
             drawer: HomeDrawerWidget(),
@@ -81,7 +83,7 @@ class _DetailPageState
                       },
                         title: Text(
                           lecture != null ? "${lecture.toString()}" : '<Sem interpretação>',
-                          style: TextStyle(fontSize: 20,),
+                          style: TextStyle(fontSize: 20, fontFamily: "RobotoMono"),
                         ),
                         subtitle: Text("--------------------"),
                       );

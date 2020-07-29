@@ -73,7 +73,10 @@ class NumerologyMap {
     this.dividasCarmicas,
     this.personalYear,
     this.lessons,
-    this.subconscious
+    this.subconscious,
+    this.cicle1,
+    this.cicle2,
+    this.cicle3,
 
 
   });
@@ -89,6 +92,9 @@ class NumerologyMap {
   String impressao;
   String personalYear;
   String subconscious;
+  List<dynamic> cicle1;
+  List<dynamic> cicle2;
+  List<dynamic> cicle3;
 
   factory NumerologyMap.fromJson(String str) => NumerologyMap.fromMap(json.decode(str));
 
@@ -105,7 +111,10 @@ class NumerologyMap {
     subconscious: json["subconscious"] ?? json["subconscious"],
     tendenciasOcultas: List<dynamic>.from(json["tendenciasOcultas"].map((x) => x)),
     dividasCarmicas: List<dynamic>.from(json["dividasCarmicas"].map((x) => x)),
-    lessons: json["lessons"] ?? List<dynamic>.from(json["lessons"].map((x) => x))
+    lessons: json["lessons"] ?? List<dynamic>.from(json["lessons"].map((x) => x)),
+    cicle1: json["cicle1"] ?? List<dynamic>.from(json["cicle1"].map((x) => x)),
+    cicle2: json["cicle2"] ?? List<dynamic>.from(json["cicle2"].map((x) => x)),
+    cicle3: json["cicle3"] ?? List<dynamic>.from(json["cicle3"].map((x) => x)),
 
   );
 
@@ -121,5 +130,9 @@ class NumerologyMap {
     "impressao": impressao,
     "personalYear": personalYear,
     "subconscious": subconscious,
+    "cicle1": List<dynamic>.from(cicle1.map((x) => x)),
+    "cicle2": List<dynamic>.from(cicle2.map((x) => x)),
+    "cicle3": List<dynamic>.from(cicle3.map((x) => x)),
+
   };
 }

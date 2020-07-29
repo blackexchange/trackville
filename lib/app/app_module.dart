@@ -3,6 +3,7 @@ import 'package:trackville/app/auth/repositories/auth_repository.dart';
 import 'package:trackville/app/auth/repositories/auth_repository_interface.dart';
 import 'package:trackville/app/modules/coaching/detail_page.dart';
 import 'package:trackville/app/modules/home/home_controller.dart';
+import 'package:trackville/app/modules/home/triz_screen.dart';
 import 'package:trackville/app/modules/home/widgets/home_drawer/home_drawer_widget.dart';
 import 'package:trackville/app/modules/login/login_module.dart';
 import 'package:trackville/app/modules/numerology/numerology_controller.dart';
@@ -47,6 +48,7 @@ class AppModule extends MainModule {
         Router("/coaching", module: CoachingModule()),
         Router("/persons", module: PersonsModule()),
         Router("/about", child:(_,args)=>HelpScreen()),
+        Router("/triz", child:(_,args)=>TrizScreen()),
         Router("/detail/:lecture", child:(_,args)=>DetailPage(
             lecture:args.params["lecture"],
         )),

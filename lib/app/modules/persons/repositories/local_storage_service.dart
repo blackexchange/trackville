@@ -16,13 +16,14 @@ class LocalStorageService extends Disposable {
     Hive.init(directory.path);
     final box = await Hive.openBox("personsDb");
 
-   // box.deleteFromDisk();
+   //box.deleteFromDisk();
     if (!completer.isCompleted)
       completer.complete(box);
   }
 
   Future <List<PersonModel>> getAll() async{
     final box = await completer.future;
+
     return box.values.map((e) => PersonModel.fromJson(e)).toList();
 
   }

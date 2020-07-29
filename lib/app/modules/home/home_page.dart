@@ -42,7 +42,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
-                            Text("Clientes", style: TextStyle(fontSize: 16),),
                             Dismissible(
                               key: Key(snapshot.data.name),
                               direction: DismissDirection.endToStart,

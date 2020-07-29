@@ -170,6 +170,21 @@ mixin _$CoachingController on _CoachingControllerBase, Store {
     });
   }
 
+  final _$listDataAtom = Atom(name: '_CoachingControllerBase.listData');
+
+  @override
+  Future<List<QuerySnapshot>> get listData {
+    _$listDataAtom.reportRead();
+    return super.listData;
+  }
+
+  @override
+  set listData(Future<List<QuerySnapshot>> value) {
+    _$listDataAtom.reportWrite(value, super.listData, () {
+      super.listData = value;
+    });
+  }
+
   final _$_CoachingControllerBaseActionController =
       ActionController(name: '_CoachingControllerBase');
 
@@ -241,6 +256,7 @@ lectureCodes: ${lectureCodes},
 lectureMap: ${lectureMap},
 leitureResume: ${leitureResume},
 numbers: ${numbers},
+listData: ${listData},
 sharePressed: ${sharePressed}
     ''';
   }

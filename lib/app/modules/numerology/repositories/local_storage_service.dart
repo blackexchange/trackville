@@ -16,7 +16,7 @@ class LocalStorageService extends Disposable {
     Hive.init(directory.path);
     final box = await Hive.openBox("numerology_db");
 
-    //box.deleteFromDisk();
+    box.deleteFromDisk();
     if (!completer.isCompleted)
       completer.complete(box);
   }
